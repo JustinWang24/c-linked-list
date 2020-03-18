@@ -2,19 +2,64 @@
 #include <stdlib.h>
 #include <string.h>
 #include "list.h"
+#include "queue.h"
 
 void showMovies(Item item);
 
 void test_list();
+void test_queue();
 
 int main() {
 
-    test_list();
+//    test_list();
+    test_queue();
     return 0;
 }
 
 void showMovies(Item item){
     printf("电影名: %s, 评分: %d\n", item.title, item.rating);
+}
+
+/**
+ * 测试队列
+ */
+void test_queue(){
+    Queue line;
+    QueueItem temp, temp2, temp3;
+    QueueItem currentItem;
+
+    InitializeQueue(&line);
+    temp.uuid[0] = 'a';
+    temp.value = "json 1";
+    temp2.uuid[0] = 'b';
+    temp2.value = "json 2";
+    temp3.uuid[0] = 'b';
+    temp3.value = "json 3";
+
+    // 测试入列
+    printf("队列是否为空? %s\n", QueueIsEmpty(&line) ? "Yes" : "No");
+
+    EnQueue(temp, &line);
+    printf("队列是否为空? %s\n", QueueIsEmpty(&line) ? "Yes" : "No");
+    printf("队列元素数: %d\n", QueueItemCount(&line));
+
+    EnQueue(temp2, &line);
+    EnQueue(temp3, &line);
+    printf("队列元素数: %d\n", QueueItemCount(&line));
+
+    DeQueue(&currentItem, &line);
+    printf("出列元素: %s\n", currentItem.value);
+    printf("队列元素数: %d\n", QueueItemCount(&line));
+
+    DeQueue(&currentItem, &line);
+    printf("出列元素: %s\n", currentItem.value);
+    printf("队列元素数: %d\n", QueueItemCount(&line));
+
+    DeQueue(&currentItem, &line);
+    printf("出列元素: %s\n", currentItem.value);
+    printf("队列元素数: %d\n", QueueItemCount(&line));
+
+    EmptyTheQueue(&line);
 }
 
 void test_list(){
